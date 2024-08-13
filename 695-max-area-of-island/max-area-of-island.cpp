@@ -10,7 +10,6 @@ public:
                 if(grid[i][j] == 1 && v.find({i, j}) == v.end()) {
                     // start dfs
                     queue<pair<int, int>> q;
-                    cout<<'\n';
                     int curArea = 0;
                     q.push({i, j});
                     v.insert({i, j});
@@ -18,8 +17,7 @@ public:
                         pair<int, int> cur = q.front();
                         q.pop();
                         int rowIndex = cur.first;
-                        int colIndex = cur.second;
-                        cout << "(" << cur.first << ", " << cur.second << ") "; 
+                        int colIndex = cur.second; 
                         curArea++;
                         if(rowIndex+1 < ROWS && grid[rowIndex + 1][colIndex] == 1 && v.find({rowIndex + 1, colIndex}) == v.end()) {
                             v.insert({rowIndex + 1, colIndex});

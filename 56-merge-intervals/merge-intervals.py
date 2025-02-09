@@ -4,18 +4,13 @@ class Solution:
         intervals.sort(key=lambda x: x[0])
         curStart = intervals[0][0]
         curEnd = intervals[0][1]
-        print(intervals)
-        for interval in intervals:
-            print(curStart, curEnd)
+        for interval in intervals[1:]:
             if interval[0] > curEnd:
                 res.append([curStart, curEnd])
-                #res.append(interval)
                 curStart = interval[0]
-                curEnd = interval[1]
-            else:
-                curStart = min(curStart, interval[0])
-                curEnd = max(curEnd, interval[1])
+                
+            curEnd = max(curEnd, interval[1])
 
         res.append([curStart, curEnd])
-        return res
+        return res 
                 

@@ -1,9 +1,6 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
         initial = [[1]]
-        if numRows == 1:
-            return initial
-        
         for i in range(1, numRows):
             j = 0
             top = initial[-1]

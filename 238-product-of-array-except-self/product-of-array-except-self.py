@@ -10,6 +10,7 @@ class Solution:
         postfix += [1]
         for i in range(n - 1, -1, -1):
             postfix[i] = postfix[i + 1] * nums[i]
+            
         prefix.pop(0)
         postfix.pop()
         res = []

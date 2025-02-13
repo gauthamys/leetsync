@@ -11,11 +11,8 @@ class Solution:
         parent = {}
         parent[root] = None
         SOL = 0
-        while stk and SOL < 2:
+        while stk and p not in parent or q not in parent:
             cur = stk.pop()
-            if cur.val == p or cur.val == q:
-                SOL += 1
-                continue
             if cur.right:
                 parent[cur.right] = cur
                 stk.append(cur.right)
@@ -30,7 +27,7 @@ class Solution:
         
         while q not in ancs:
             q = parent[q]
-            
+
         return q
             
 

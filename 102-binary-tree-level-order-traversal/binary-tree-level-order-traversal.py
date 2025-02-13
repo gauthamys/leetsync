@@ -9,21 +9,19 @@ class Solution:
         if not root:
             return []
         
-        q = [root]
         res = []
-
+        q = [root]
         while q:
-            l = len(q)
-            tmp = []
-            for i in range(len(q)):
+            qLen = len(q)
+            to_push = []
+            for i in range(qLen):
                 cur = q.pop(0)
-                tmp.append(cur.val)
-            
+                to_push.append(cur.val)
                 if cur.left:
                     q.append(cur.left)
-
                 if cur.right:
                     q.append(cur.right)
-            res.append(tmp)
+            res.append(to_push)
 
         return res
+                

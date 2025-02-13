@@ -10,7 +10,6 @@ class Solution:
         stk = [root]
         parent = {}
         parent[root] = None
-        SOL = 0
         while stk and p not in parent or q not in parent:
             cur = stk.pop()
             if cur.right:
@@ -24,10 +23,9 @@ class Solution:
         while p:
             ancs.add(p)
             p = parent[p]
-        
         while q not in ancs:
             q = parent[q]
-
+        
         return q
             
 

@@ -9,16 +9,17 @@ class Solution:
         res = 0
         def dfs(node, dir, steps):
             nonlocal res
+
             if not node:
-                return
-            res = max(res, steps)
+                return 0
+            
+            res = max(steps, res)
+            if dir == "right":
+                dfs(node.left, "left", steps + 1)
+                dfs(node.right, "right", 1)
             if dir == "left":
                 dfs(node.left, "left", 1)
                 dfs(node.right, "right", steps + 1)
-            else:
-                dfs(node.left, "left", steps + 1)
-                dfs(node.right, "right", 1)
-            
-        dfs(root, "right", 0)
+        
+        dfs(root, "left", 0)
         return res
-            

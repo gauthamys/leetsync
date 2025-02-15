@@ -5,8 +5,7 @@ class Solution:
         for i in range(len(nums)):
             if i > 0 and nums[i - 1] == nums[i]:
                 continue
-            l = i + 1
-            r = len(nums) - 1
+            l, r = i + 1, len(nums) - 1
             while l < r:
                 s = nums[i] + nums[l] + nums[r]
                 if s == 0:
@@ -16,6 +15,7 @@ class Solution:
                         l += 1
                 elif s < 0:
                     l += 1
-                elif s > 0:
+                else:
                     r -= 1
+        
         return res

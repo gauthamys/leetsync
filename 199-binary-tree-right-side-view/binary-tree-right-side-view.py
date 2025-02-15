@@ -12,8 +12,8 @@ class Solution:
         q = [root]
         res = []
         while q:
-            to = []
             qLen = len(q)
+            to = []
             for _ in range(qLen):
                 cur = q.pop(0)
                 to.append(cur.val)

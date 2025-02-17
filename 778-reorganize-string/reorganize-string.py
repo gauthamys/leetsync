@@ -1,16 +1,16 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        ans = []
         counts = defaultdict(int)
         for c in s:
             counts[c] += 1
         
-        pq = [(-count, c) for c, count in counts.items()]
-        heapq.heapify(pq)
+        pq = [(-count, char) for char, count in counts.items()]
+        ans = []
 
+        heapq.heapify(pq)
         while pq:
             count_first, char_first = heapq.heappop(pq)
-            if not ans or ans[-1] != char_first:
+            if len(ans) == 0 or char_first != ans[-1]:
                 ans.append(char_first)
                 if count_first + 1 != 0:
                     heapq.heappush(pq, (count_first + 1, char_first))

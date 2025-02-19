@@ -1,16 +1,12 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        indegree = [0] * numCourses
         adj = {i:[] for i in range(numCourses)}
-
+        indegree = [0] * numCourses
         for src, dest in prerequisites:
-            indegree[dest] += 1
             adj[src].append(dest)
+            indegree[dest] += 1
         
-        q = []
-        for node in adj:
-            if indegree[node] == 0:
-                q.append(node)
+        q = [i for i in range(len(indegree)) if indegree[i] == 0]
 
         finished = 0
         while q:
@@ -22,3 +18,5 @@ class Solution:
             finished += 1
         
         return finished == numCourses
+        
+        

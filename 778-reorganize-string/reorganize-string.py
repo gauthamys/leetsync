@@ -4,30 +4,26 @@ class Solution:
         for c in s:
             counts[c] += 1
         
-        l = [(-counts[i], i) for i in counts.keys()]
-        ans = []
-        
+        l = [(-counts[c], c) for c in counts]
         heapq.heapify(l)
-
+        
+        res = []
         while l:
-            print(l)
             count_first, char_first = heapq.heappop(l)
-            if not ans or ans[-1] != char_first:
-                ans.append(char_first)
+            if not res or res[-1] != char_first:
+                res.append(char_first)
                 if count_first + 1 < 0:
                     heapq.heappush(l, (count_first + 1, char_first))
-            
+                
             else:
                 if not l:
                     return ""
                 count_second, char_second = heapq.heappop(l)
-                if char_second == ans[-1]:
-                    return ""
-
-                ans.append(char_second)
+                res.append(char_second)
                 if count_second + 1 < 0:
                     heapq.heappush(l, (count_second + 1, char_second))
                 heapq.heappush(l, (count_first, char_first))
         
-        return ''.join(ans)
-
+        return "".join(res)
+            
+            

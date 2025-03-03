@@ -20,6 +20,7 @@ class Solution:
             res = max(res, a[l] + a[r])
             l += 1
             r -= 1
+            
         return res
 
         

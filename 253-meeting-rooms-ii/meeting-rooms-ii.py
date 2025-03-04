@@ -12,8 +12,8 @@ class Solution:
                 curCount += 1
                 b += 1
             else:
+                curCount -= 1
                 e += 1
-                curCount -= 1 
-            
             res = max(res, curCount)
+
         return res

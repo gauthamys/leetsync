@@ -9,9 +9,9 @@ class Solution:
                 r += 1
             else:
                 new_l = m[s[r]] + 1
-                for i in range(l, new_l):
+                for i in range(l, m[s[r]] + 1):
                     del m[s[i]]
                 l = new_l
-            
             res = max(res, (r - l))
+        
         return res

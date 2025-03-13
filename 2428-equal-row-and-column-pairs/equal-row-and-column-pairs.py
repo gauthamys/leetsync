@@ -15,6 +15,6 @@ class Solution:
         res = 0
         for l in r:
             res += r[l] * c[l]
-        print(r, c)
+
         return int(res)
 

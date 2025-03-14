@@ -1,16 +1,11 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        initial = [[1]]
-        for i in range(1, numRows):
-            j = 0
-            top = initial[-1]
-            to_push = []
-            while j < len(top):
-                left = 0 if j - 1 < 0 else top[j - 1]
-                to_push.append(left + top[j])
-                j += 1
-
-            to_push.append(1)
-            initial.append(to_push)
-
-        return initial
+        triangle = [[1]]
+        for _ in range(numRows - 1):
+            top = triangle[-1]
+            nex = []
+            for i in range(1, len(top)):
+                nex.append(top[i] + top[i - 1])
+            nex = [1] + nex + [1]
+            triangle.append(nex)
+        return triangle

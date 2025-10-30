@@ -10,5 +10,6 @@ class Solution:
             dfs(i + 1)
             subset.pop()
             dfs(i + 1)
+        
         dfs(0)
         return res

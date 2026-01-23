@@ -1,7 +1,14 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        m = defaultdict(list)
+        m = dict()
         for s in strs:
-            m[''.join(sorted(s))].append(s)
-        
-        return list(m.values())
+            k = [0] * 26
+            for c in s:
+                k[ord(c) - ord('a')] += 1
+            key = tuple(k)
+            if key in m.keys():
+                m[key].append(s)
+            else:
+                m[key] = [s]
+        #print(m)
+        return [v for v in m.values()]

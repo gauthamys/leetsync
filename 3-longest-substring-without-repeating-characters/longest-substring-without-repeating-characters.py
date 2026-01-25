@@ -1,7 +1,7 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        l, r = 0, 0
         m = {}
+        l, r = 0, 0
         res = 0
         while r < len(s):
             if s[r] not in m:

@@ -4,10 +4,10 @@ class Solution:
         res = 0
         while l < r:
             cur = (r - l) * min(height[l], height[r])
-            res = max(res, cur)
-            if height[l] < height[r]:
-                l += 1
-            else:
+            if height[l] > height[r]:
                 r -= 1
-
-        return res 
+            else:
+                l += 1
+            res = max(res, cur)
+        
+        return res

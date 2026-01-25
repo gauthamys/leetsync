@@ -3,8 +3,9 @@ class Solution:
         curMin = float('inf')
         res = 0
         for i in range(len(prices)):
-            curProfit = prices[i] - curMin
-            curMin = min(curMin, prices[i])
-            res = max(res, curProfit)
+            if prices[i] < curMin:
+                curMin = prices[i]
+            curMax = prices[i] - curMin
+            res = max(res, curMax)
         
         return res

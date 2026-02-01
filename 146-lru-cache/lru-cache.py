@@ -1,47 +1,48 @@
 class ListNode:
-    def __init__(self, key, value):
+    def __init__(self, key, val):
         self.key = key
-        self.value = value
-        self.next = self.prev = None
-
+        self.val = val
+        self.next = None
+        self.prev = None
 class LRUCache:
-
+    def insert(self, node):
+        self.head.next.prev = node
+        node.next = self.head.next
+        self.head.next = node
+        node.prev = self.head
+    
+    def remove(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+    
     def __init__(self, capacity: int):
-        self.cache = {}
+        self.m = {}
         self.cap = capacity
         self.head = self.tail = ListNode(-1, -1)
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def add(self, node):
-        last = self.tail.prev
-        last.next, node.prev = node, last
-        self.tail.prev, node.next = node, self.tail
-    
-    def remove(self, node):
-        node.prev.next, node.next.prev = node.next, node.prev
-
     def get(self, key: int) -> int:
-        if key in self.cache:
-            self.remove(self.cache[key])
-            self.add(self.cache[key])
-            return self.cache[key].value
-        return -1
-        
+        if key not in self.m:
+            return -1
+        self.remove(self.m[key])
+        node = ListNode(key, self.m[key].val)
+        self.m[key] = node
+        self.insert(node)
+        return node.val
 
     def put(self, key: int, value: int) -> None:
-        if key in self.cache:
-            self.remove(self.cache[key])
-        
-        new = ListNode(key, value)
-        self.add(new)
-        self.cache[key] = new
-
-        if len(self.cache) > self.cap:
-            to_remove = self.head.next
-            self.remove(to_remove)
-            del self.cache[to_remove.key]
-
+        if key in self.m:
+            self.remove(self.m[key])
+            self.insert(self.m[key])
+            self.m[key].val = value
+            return
+        if len(self.m) == self.cap:
+            del self.m[self.tail.prev.key]
+            self.remove(self.tail.prev)
+        node = ListNode(key, value)
+        self.m[key] = node
+        self.insert(node)
 
 
 # Your LRUCache object will be instantiated and called as such:

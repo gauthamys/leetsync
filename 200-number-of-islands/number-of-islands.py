@@ -1,28 +1,18 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
+        dirs = [(0, 1), (0, -1), (-1, 0), (1, 0)]
         res = 0
-        visited = set()
         for i in range(ROWS):
             for j in range(COLS):
-                if grid[i][j] == "0" or (i, j) in visited:
+                if grid[i][j] == "0":
                     continue
-                q = [(i, j)]
-                visited.add((i, j))
-                while q:
-                    curI, curJ = q.pop(0)
-                    if curI + 1 < ROWS and grid[curI + 1][curJ] == "1" and (curI + 1, curJ) not in visited:
-                        q.append((curI + 1, curJ))
-                        visited.add((curI + 1, curJ))
-                    if curJ + 1 < COLS and grid[curI][curJ + 1] == "1" and (curI, curJ + 1) not in visited:
-                        q.append((curI, curJ + 1))
-                        visited.add((curI, curJ + 1))
-                    if curI - 1 >= 0 and grid[curI - 1][curJ] == "1" and (curI - 1, curJ) not in visited:
-                        q.append((curI - 1, curJ))
-                        visited.add((curI - 1, curJ))
-                    if curJ - 1 >= 0 and grid[curI][curJ - 1] == "1" and (curI, curJ - 1) not in visited:
-                        q.append((curI, curJ - 1))
-                        visited.add((curI, curJ - 1))
+                stk = [(i, j)]
+                while stk:
+                    curI, curJ = stk.pop()
+                    grid[curI][curJ] = "0"
+                    for dI, dJ in dirs:
+                        if curI + dI < ROWS and curI + dI >= 0 and curJ + dJ >= 0 and curJ + dJ < COLS and grid[curI + dI][curJ + dJ] == "1":
+                            stk.append((curI + dI, curJ + dJ))
                 res += 1
-    
         return res

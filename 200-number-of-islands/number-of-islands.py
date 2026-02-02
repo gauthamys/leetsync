@@ -10,9 +10,9 @@ class Solution:
                 stk = [(i, j)]
                 while stk:
                     curI, curJ = stk.pop()
-                    grid[curI][curJ] = "0"
                     for dI, dJ in dirs:
                         if curI + dI < ROWS and curI + dI >= 0 and curJ + dJ >= 0 and curJ + dJ < COLS and grid[curI + dI][curJ + dJ] == "1":
                             stk.append((curI + dI, curJ + dJ))
+                            grid[curI + dI][curJ + dJ] = "0"
                 res += 1
         return res

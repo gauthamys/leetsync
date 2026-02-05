@@ -6,20 +6,14 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        if not root:
-            return 0
+        stk = [[root, root.val]]
         res = 0
-        
-        def helper(maxNum, node):
-            nonlocal res
-            if not node:
-                return
-
-            if node.val >= maxNum:
+        while stk:
+            cur_node, cur_max = stk.pop()
+            if cur_node.val >= cur_max:
                 res += 1
-                maxNum = node.val
-            helper(maxNum, node.right)
-            helper(maxNum, node.left)
-        
-        helper(float('-inf'), root)
+            if cur_node.left:
+                stk.append([cur_node.left, max(cur_node.val, cur_max)])
+            if cur_node.right:
+                stk.append([cur_node.right, max(cur_node.val, cur_max)])
         return res

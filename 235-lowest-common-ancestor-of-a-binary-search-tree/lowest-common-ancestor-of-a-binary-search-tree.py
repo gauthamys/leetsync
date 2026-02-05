@@ -7,37 +7,28 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        parent = {root: None}
+        ancs = {root: None}
         qu = [root]
-        found = 0
-        while qu and found != 2:
+        visited = set()
+        visited.add(root)
+        while p not in visited or q not in visited:
             cur = qu.pop(0)
-            if cur == p:
-                found += 1
-            if cur == q:
-                found += 1
             if cur.left:
-                parent[cur.left] = cur
                 qu.append(cur.left)
+                visited.add(cur.left)
+                ancs[cur.left] = cur
             if cur.right:
-                parent[cur.right] = cur
                 qu.append(cur.right)
-        
-        p_par = parent[p]
-        q_par = parent[q]
+                visited.add(cur.right)
+                ancs[cur.right] = cur
         p_path = [p]
-        q_path = [q]
-        while p_par:
-            p_path.append(p_par)
-            p_par = parent[p_par]
-        while q_par:
-            q_path.append(q_par)
-            q_par = parent[q_par]
+        cur = p
+        while cur:
+            cur = ancs[cur]
+            p_path.append(cur)
         
-        for i in range(len(p_path)):
-            if p_path[i] in q_path:
-                return p_path[i]
-        
-        
+        cur = q
+        while cur not in p_path:
+            cur = ancs[cur]
+        return cur
             
-        

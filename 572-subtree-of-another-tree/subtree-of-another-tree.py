@@ -14,6 +14,7 @@ class Solution:
             if node1.val != node2.val:
                 return False
             return same(node1.left, node2.left) and same(node1.right, node2.right)
+        
         stk = [root]
         while stk:
             cur = stk.pop()

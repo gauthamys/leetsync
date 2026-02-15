@@ -12,7 +12,6 @@ class Solution:
         cnt = 0
         while stk:
             cur = stk[-1]
-            print(cur.val, cnt, [x.val for x in stk])
             if cur.left and cur.left not in visited:
                 stk.append(cur.left)
                 visited.add(cur.left)

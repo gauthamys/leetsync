@@ -17,4 +17,4 @@ class Solution:
                     l = mid + 1
             else:
                 return nums[mid]
-        return nums[l]
+        return nums[r]

@@ -1,0 +1,55 @@
+class ListNode:
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.next = None
+
+class MyHashMap:
+
+    def __init__(self):
+        self.base = 769
+        self.m = [ListNode(-1, -1) for _ in range(self.base)]
+
+    def put(self, key: int, value: int) -> None:
+        h = key % self.base
+        head = self.m[h]
+        cur = head
+        prev = None
+        while cur:
+            if cur.key == key:
+                cur.val = value
+                return
+            prev = cur
+            cur = cur.next
+        prev.next = ListNode(key, value)
+
+    def get(self, key: int) -> int:
+        h = key % self.base
+        head = self.m[h]
+        cur = head
+        prev = None
+        while cur:
+            if cur.key == key:
+                return cur.val
+            prev = cur
+            cur = cur.next
+        return -1
+
+    def remove(self, key: int) -> None:
+        h = key % self.base
+        head = self.m[h]
+        cur = head
+        prev = None
+        while cur:
+            if cur.key == key:
+                prev.next = cur.next
+                return
+            prev = cur
+            cur = cur.next
+
+
+# Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)

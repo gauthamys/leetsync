@@ -8,7 +8,6 @@ class NumMatrix:
             for j in range(n):
                 cur += matrix[i][j]
                 self.prefix[i][j] = cur
-        print(self.prefix)
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
         res = 0

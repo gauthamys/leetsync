@@ -1,13 +1,14 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        ans = [0] * len(temperatures)
         stk = []
-        for i in range(len(temperatures)):
-            while stk and temperatures[i] > stk[-1][0]:
-                top = stk.pop()
-                ans[top[1]] = i - top[1]
-            stk.append((temperatures[i], i))
-        
-        return ans
-
-        
+        res = [0] * len(temperatures)
+        for i, t in enumerate(temperatures):
+            #print(stk)
+            if not stk or stk[-1][0] >= t:
+                stk.append((t, i))
+            elif t > stk[-1][0]:
+                while stk and stk[-1][0] < t:
+                    curT, curI = stk.pop()
+                    res[curI] = i - curI
+                stk.append((t, i))
+        return res

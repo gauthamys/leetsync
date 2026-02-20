@@ -2,7 +2,6 @@ class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stk = []
         for a in asteroids:
-            #print(stk)
             if not stk or stk[-1] / abs(stk[-1]) == a / abs(a):
                 stk.append(a)
             else:

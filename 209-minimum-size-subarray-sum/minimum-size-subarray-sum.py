@@ -9,6 +9,8 @@ class Solution:
             pre += n
             prefix.append(pre)
             m[pre] = i
+            if pre < target:
+                continue
             for j in range(pre - target, -1, -1):
                 if j in m:
                     cur = i - m[j]

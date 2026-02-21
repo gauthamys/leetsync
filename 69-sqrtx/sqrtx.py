@@ -1,6 +1,6 @@
 class Solution:
     def mySqrt(self, x: int) -> int:
-        l, r = 0, x
+        l, r = 0, x // 2 + max(1, x % 2)
         while l <= r:
             mid = (l + r) // 2
             sq = mid ** 2

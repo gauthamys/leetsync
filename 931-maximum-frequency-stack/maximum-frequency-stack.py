@@ -1,8 +1,8 @@
 class FreqStack:
 
     def __init__(self):
-        self.freq = {}
-        self.stks = {}
+        self.freq = {0: 0}
+        self.stks = {0: []}
         self.maxFreq = 0
 
     def push(self, val: int) -> None:
@@ -17,7 +17,9 @@ class FreqStack:
         self.freq[popped] -= 1
         if not self.stks[self.maxFreq]:
             del self.stks[self.maxFreq]
-            self.maxFreq = max(self.freq.values())
+            self.maxFreq -= 1
+            while self.maxFreq not in self.stks:
+                self.maxFreq -= 1
         return popped
 
 

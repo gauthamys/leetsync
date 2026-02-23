@@ -11,20 +11,14 @@ class Solution:
         l = res
         for _ in range(left - 1):
             l = l.next
-        cur = l.next
-        prev = None
-        r = None
+        cur = tail = l.next
+        prev = r = None
         for _ in range(right - left + 1):
             r = cur.next
             cur.next = prev
             prev = cur
             cur = r
         l.next = prev
-        c = prev
-        while c.next:
-            c = c.next
-        c.next = r
+        tail.next = r
         return res.next
-        # 0 1 2 3 4 5
-        # l   c 
         

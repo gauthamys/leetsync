@@ -17,5 +17,3 @@ class Solution:
             return node.val + max(leftMax, rightMax)
         dfs(root)
         return res
-        
-            

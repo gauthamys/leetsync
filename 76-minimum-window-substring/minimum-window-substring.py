@@ -15,12 +15,15 @@ class Solution:
             return True
 
         while r < len(s):
-            have[s[r]] = have.get(s[r], 0) + 1
+            if s[r] in need:
+                have[s[r]] = have.get(s[r], 0) + 1
+            
             if check():
                 while check():
                     if (r - l) < (res_r - res_l):
                         res_r, res_l = r, l
-                    have[s[l]] -= 1
+                    if s[l] in need:
+                        have[s[l]] -= 1
                     l += 1
             r += 1
         

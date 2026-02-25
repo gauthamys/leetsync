@@ -1,13 +1,11 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         res = []
-        def dfs(cur, num):
-            nonlocal res
-            if len(cur) == k:
-                res.append(cur)
+        def backtrack(start, path):
+            if len(path) == k:
+                res.append(path)
                 return
-            for i in range(num + 1, n + 1):
-                dfs(cur + [i], i)
-        dfs([], 0)
+            for i in range(start, n + 1):
+                backtrack(i + 1, path + [i])
+        backtrack(1, [])
         return res
-                

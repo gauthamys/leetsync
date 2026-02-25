@@ -4,14 +4,17 @@ class Solution:
             return st == st[::-1]
         
         res = []
-        def backtrack(start, cur):
+        cur = []
+        def backtrack(start):
             if start >= len(s):
                 res.append(cur[:])
                 return
             for end in range(start + 1, len(s) + 1):
                 piece = s[start:end]
                 if isPalindrome(piece):
-                    backtrack(end, cur + [piece])
+                    cur.append(piece)
+                    backtrack(end)
+                    cur.pop()
         
-        backtrack(0, [])
+        backtrack(0)
         return res

@@ -3,11 +3,11 @@ class Solution:
         res = []
         def backtrack(path):
             if len(path) == len(nums):
-                res.append([nums[i] for i in path])
+                res.append(path)
                 return
             for i in range(len(nums)):
-                if i not in path:
-                    backtrack(path + [i])
+                if nums[i] not in path:
+                    backtrack(path + [nums[i]])
         backtrack([])
         return res
                 

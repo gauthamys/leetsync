@@ -1,14 +1,14 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
-        subset = []
+        cur = []
         def backtrack(start):
-            res.append(subset.copy())
+            res.append(cur[:])
             if start >= len(nums):
                 return
             for i in range(start, len(nums)):
-                subset.append(nums[i])
+                cur.append(nums[i])
                 backtrack(i + 1)
-                subset.pop()
+                cur.pop()
         backtrack(0)
         return res

@@ -11,11 +11,8 @@ class Solution:
         sides = [0] * 4
         matchsticks.sort(reverse=True)
         def backtrack(idx):
-            if sides[0] == sides[1] == sides[2] == sides[3] == side:
-                return True
-
-            if idx >= len(matchsticks):
-                return False
+            if idx == len(matchsticks):
+                return sides[0] == sides[1] == sides[2] == sides[3] == side
 
             for i in range(4):
                 if sides[i] + matchsticks[idx] <= side:
@@ -24,8 +21,9 @@ class Solution:
                         return True
                     sides[i] -= matchsticks[idx]
             
-            if sides[i] == 0:
-                return False
+                if sides[i] == 0:
+                    break
+            return False
         
         return backtrack(0)
         

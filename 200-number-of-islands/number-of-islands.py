@@ -1,18 +1,25 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        ROWS, COLS = len(grid), len(grid[0])
-        dirs = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+        rows, cols = len(grid), len(grid[0])
         res = 0
-        for i in range(ROWS):
-            for j in range(COLS):
-                if grid[i][j] == "0":
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] != "1":
                     continue
-                stk = [(i, j)]
-                while stk:
-                    curI, curJ = stk.pop()
-                    for dI, dJ in dirs:
-                        if curI + dI < ROWS and curI + dI >= 0 and curJ + dJ >= 0 and curJ + dJ < COLS and grid[curI + dI][curJ + dJ] == "1":
-                            stk.append((curI + dI, curJ + dJ))
-                            grid[curI + dI][curJ + dJ] = "0"
+                q = [(i, j)]
+                while q:
+                    curI, curJ = q.pop()
+                    grid[curI][curJ] = "0"
+                    children = [
+                        (curI + 1, curJ), 
+                        (curI - 1, curJ), 
+                        (curI, curJ + 1), 
+                        (curI, curJ - 1)
+                    ]
+                    for x, y in children:
+                        if x < 0 or x > rows - 1 or y < 0 or y > cols - 1:
+                            continue
+                        if grid[x][y] == "1": 
+                            q.append((x, y))
                 res += 1
         return res

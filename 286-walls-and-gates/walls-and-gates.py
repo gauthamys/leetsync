@@ -3,21 +3,26 @@ class Solution:
         """
         Do not return anything, modify rooms in-place instead.
         """
-        ROWS, COLS = len(rooms), len(rooms[0])
-        q = [(i, j, 0) for i in range(ROWS) for j in range(COLS) if rooms[i][j] == 0]
-        dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        INF = 2147483647
+        rows, cols = len(rooms), len(rooms[0])
+        
+        q = deque([])
         visited = set()
+        for i in range(rows):
+            for j in range(cols):
+                if rooms[i][j] != 0:
+                    continue
+                q.append((i, j, 0))
+                visited.add((i, j))
+        
         while q:
-            qLen = len(q)
-            for _ in range(qLen):
-                cur = q.pop(0)
-                visited.add((cur[0], cur[1]))
-                for d in dirs:
-                    r, c = cur[0] + d[0], cur[1] + d[1]
-                    cost = cur[2]
-                    if r < 0 or r > ROWS - 1 or c < 0 or c > COLS - 1 or rooms[r][c] == -1 or rooms[r][c] == 0 or (r, c) in visited:
-                        continue
-
-                    rooms[r][c] = min(rooms[r][c], cost + 1)
-                    visited.add((r, c))
-                    q.append((r, c, rooms[r][c]))
+            cur_i, cur_j, path_len = q.popleft()
+            children = [(cur_i + 1, cur_j), (cur_i - 1, cur_j), (cur_i, cur_j + 1), (cur_i, cur_j - 1)]
+            for ci, cj in children:
+                if ci < 0 or cj < 0 or ci >= rows or cj >= cols or rooms[ci][cj] == -1 or (ci, cj) in visited:
+                    continue
+                visited.add((ci, cj))
+                q.append((ci, cj, path_len + 1))
+                rooms[ci][cj] = min(rooms[ci][cj], path_len + 1)
+            
+                

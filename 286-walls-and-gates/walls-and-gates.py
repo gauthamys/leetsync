@@ -17,7 +17,12 @@ class Solution:
         
         while q:
             cur_i, cur_j, path_len = q.popleft()
-            children = [(cur_i + 1, cur_j), (cur_i - 1, cur_j), (cur_i, cur_j + 1), (cur_i, cur_j - 1)]
+            children = [
+                (cur_i + 1, cur_j), 
+                (cur_i - 1, cur_j), 
+                (cur_i, cur_j + 1), 
+                (cur_i, cur_j - 1)
+            ]
             for ci, cj in children:
                 if ci < 0 or cj < 0 or ci >= rows or cj >= cols or rooms[ci][cj] == -1 or (ci, cj) in visited:
                     continue

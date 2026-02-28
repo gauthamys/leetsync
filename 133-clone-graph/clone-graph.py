@@ -19,6 +19,7 @@ class Solution:
             
             res = Node(n.val)
             visited[res.val] = res
+            
             for nei in n.neighbors:
                 res.neighbors.append(copy(nei))
             

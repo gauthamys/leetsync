@@ -24,5 +24,3 @@ class Solution:
                     degree[nei] -= 1
                     if degree[nei] == 1:
                         q.append(nei)
-        
-        return [node for node in adj if node not in q]

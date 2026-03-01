@@ -11,12 +11,12 @@ class Solution:
                     res.append(" ".join(curSentence))
                     curSentence.pop()
                 return
-            
+
             if word in wordDict:
                 curSentence.append(word)
                 backtrack(start + 1, [s[start]], curSentence)
                 curSentence.pop()
-            
+
             curWord.append(s[start])
             backtrack(start + 1, curWord, curSentence)
             curWord.pop()

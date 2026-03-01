@@ -1,37 +1,57 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        ROWS, COLS = len(heights), len(heights[0])
-        res = []
-        atl = set()
-        pac = set()
-        def bfs(r, c, visited):
-            visited.add((r, c))
-            queue = [(r, c)]
-            while queue:
-                cr, cc = queue.pop(0)
-                if cr + 1 < ROWS and heights[cr + 1][cc] >= heights[cr][cc] and (cr + 1, cc) not in visited:
-                    queue.append((cr + 1, cc))
-                    visited.add((cr + 1, cc))
-                if cr - 1 >= 0 and heights[cr - 1][cc] >= heights[cr][cc] and (cr - 1, cc) not in visited:
-                    queue.append((cr - 1, cc))
-                    visited.add((cr - 1, cc))
-                if cc + 1 < COLS and heights[cr][cc + 1] >= heights[cr][cc] and (cr, cc + 1) not in visited:
-                    queue.append((cr, cc + 1))
-                    visited.add((cr, cc + 1))
-                if cc - 1 >= 0 and heights[cr][cc - 1] >= heights[cr][cc] and (cr, cc - 1) not in visited:
-                    queue.append((cr, cc - 1))
-                    visited.add((cr, cc - 1))
+        rows, cols = len(heights), len(heights[0])
         
-        for i in range(ROWS):
-            bfs(i, 0, pac)
-            bfs(i, COLS - 1, atl)
-        for j in range(COLS):
-            bfs(0, j, pac)
-            bfs(ROWS - 1, j, atl)
+        q = deque()
+        # left and top for pacific
+        for i in range(rows):
+            q.append((i, 0))
+        for j in range(cols):
+            q.append((0, j))
+        
+        pac = set(q)
+        while q:
+            cur_i, cur_j = q.popleft()
+            children = [
+                (cur_i + 1, cur_j),
+                (cur_i - 1, cur_j),
+                (cur_i, cur_j + 1),
+                (cur_i, cur_j - 1)
+            ]
+            for ci, cj in children:
+                if ci < 0 or cj < 0 or ci >= rows or cj >= cols or (ci, cj) in pac:
+                    continue
+                if heights[ci][cj] >= heights[cur_i][cur_j]:
+                    pac.add((ci, cj))
+                    q.append((ci, cj))
 
-        for i in range(ROWS):
-            for j in range(COLS):
+        q = deque()
+        # right and bottom for atlantic
+        for i in range(rows):
+            q.append((i, cols - 1))
+        for j in range(cols):
+            q.append((rows - 1, j))
+
+        atl = set(q)
+        while q:
+            cur_i, cur_j = q.popleft()
+            children = [
+                (cur_i + 1, cur_j),
+                (cur_i - 1, cur_j),
+                (cur_i, cur_j + 1),
+                (cur_i, cur_j - 1)
+            ]
+            for ci, cj in children:
+                if ci < 0 or cj < 0 or ci >= rows or cj >= cols or (ci, cj) in atl:
+                    continue
+                if heights[ci][cj] >= heights[cur_i][cur_j]:
+                    atl.add((ci, cj))
+                    q.append((ci, cj))
+        res = []
+        for i in range(rows):
+            for j in range(cols):
                 if (i, j) in atl and (i, j) in pac:
-                    res.append((i, j))
-        
+                    res.append([i, j])
         return res
+        
+

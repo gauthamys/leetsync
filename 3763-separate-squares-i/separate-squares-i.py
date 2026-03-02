@@ -13,7 +13,7 @@ class Solution:
                         above += ((y + l) - y_split) * l
             return above, below
         
-        l, r = min([x[1] for x in squares]), max([x[1] + x[2] for x in squares])
+        l, r = min(y for _, y, _  in squares), max(y + side for _, y, side in squares)
 
         eps = 1e-6
         while r - l > eps:

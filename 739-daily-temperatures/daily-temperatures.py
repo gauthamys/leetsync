@@ -1,11 +1,10 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        stk = [] # pair (t, i)
-        res = [0] * len(temperatures)
-        for i in range(len(temperatures)):
-            days = 0
-            while stk and stk[-1][0] < temperatures[i]:
-                t, index = stk.pop()
-                res[index] = i - index
-            stk.append((temperatures[i], i))
-        return res
+        answers = [0] * len(temperatures)
+        stk = [] # idx, temp
+        for i, t in enumerate(temperatures):
+            while stk and stk[-1][1] < t:
+                idx = stk.pop()[0]
+                answers[idx] = (i - idx)
+            stk.append((i, t))
+        return answers

@@ -6,6 +6,9 @@ class Solution:
         visited = set()
         rows, cols = len(board), len(board[0])
         q = deque([])
+
+        def check(i, j):
+            return i < rows and i >= 0 and j < cols and j >= 0 and board[i][j] == 'O' and (i, j) not in visited
         
         # left and right
         for i in range(rows):
@@ -31,19 +34,19 @@ class Solution:
             qLen = len(q)
             for _ in range(qLen):
                 cur_i, cur_j = q.popleft()
-                if cur_i + 1 < rows and board[cur_i + 1][cur_j] == 'O' and (cur_i + 1, cur_j) not in visited:
+                if check(cur_i + 1, cur_j):
                     q.append((cur_i + 1, cur_j))
                     visited.add((cur_i + 1, cur_j))
                 
-                if cur_i - 1 >= 0 and board[cur_i - 1][cur_j] == 'O' and (cur_i - 1, cur_j) not in visited:
+                if check(cur_i - 1, cur_j):
                     q.append((cur_i - 1, cur_j))
                     visited.add((cur_i - 1, cur_j))
                 
-                if cur_j + 1 < cols and board[cur_i][cur_j + 1] == 'O' and (cur_i, cur_j + 1) not in visited:
+                if check(cur_i, cur_j + 1):
                     q.append((cur_i, cur_j + 1))
                     visited.add((cur_i, cur_j + 1))
                 
-                if cur_j - 1 >= 0 and board[cur_i][cur_j - 1] == 'O' and (cur_i, cur_j - 1) not in visited:
+                if check(cur_i, cur_j - 1):
                     q.append((cur_i, cur_j - 1))
                     visited.add((cur_i, cur_j - 1))
         

@@ -14,7 +14,7 @@ class Solution:
                     del m[fruits[l]]
                 l += 1
             
-            res = max(res, (r - l))
+            res = max(res, r - l)
         
         return res
             

@@ -3,8 +3,9 @@ class Solution:
         # length of largest subarray with 2 distinct elements
         l, r = 0, 0
         m = defaultdict(int)
-        res = float('-inf')
-        while r < len(fruits):
+        res = 0
+        
+        for r in range(len(fruits)):
             m[fruits[r]] += 1
             
             while l < len(fruits) and len(m) > 2:
@@ -14,7 +15,6 @@ class Solution:
                 l += 1
             
             res = max(res, r - l + 1)
-            r += 1
         
         return res
             

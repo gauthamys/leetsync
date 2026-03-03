@@ -9,8 +9,8 @@ class Solution:
                 p = par[p]
             return p
         
-        def union(node1, node2):
-            p1, p2 = find(node1), find(node2)
+        def union(n1, n2):
+            p1, p2 = find(n1), find(n2)
             if p1 == p2:
                 return False
             
@@ -26,6 +26,3 @@ class Solution:
         for u, v in edges:
             if not union(u, v):
                 return [u, v]
-            
-            
-            

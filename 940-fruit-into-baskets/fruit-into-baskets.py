@@ -2,11 +2,11 @@ class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
         # length of largest subarray with 2 distinct elements
         l, r = 0, 0
-        m = defaultdict(int)
+        m = {}
         res = 0
         
         for r in range(len(fruits)):
-            m[fruits[r]] += 1
+            m[fruits[r]] = m.get(fruits[r], 0) + 1
             
             while l < len(fruits) and len(m) > 2:
                 m[fruits[l]] -= 1

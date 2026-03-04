@@ -5,7 +5,6 @@ class Solution:
         res = []
         L, R, U, D = 'L', 'R', 'U', 'D'
         d = R
-        idx = 0
         i, j = 0, 0
         while t < b and l < r:
             res.append(matrix[i][j])

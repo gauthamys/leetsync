@@ -1,6 +1,11 @@
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        distances = [(abs(arr[i] - x), i) for i in range(len(arr))]
-        distances.sort(key=lambda x: x[0])
-
-        return list(sorted([arr[x[1]] for x in distances][:k]))
+        l, r = 0, len(arr) - k
+        while l < r:
+            mid = (l + r) // 2
+            if x - arr[mid] > arr[mid + k] - x:
+                l = mid + 1
+            else:
+                r = mid
+        
+        return arr[l:l + k]

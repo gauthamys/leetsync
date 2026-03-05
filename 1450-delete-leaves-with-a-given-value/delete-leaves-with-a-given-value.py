@@ -9,14 +9,17 @@ class Solution:
         def dfs(prev, node, left):
             if not node:
                 return
-            dfs(node, node.left, True)
+            
             dfs(node, node.right, False)
+            dfs(node, node.left, True)
+            
             if not node.left and not node.right and node.val == target:
                 if left:
                     prev.left = None
                 else:
                     prev.right = None
-                return
-        root_parent = TreeNode(0, left=root)
-        dfs(root, root_parent, True)
-        return root_parent.left
+        
+        res = TreeNode(0, left=root)
+        dfs(res, root, True)
+        return res.left
+        

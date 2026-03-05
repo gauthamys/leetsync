@@ -6,20 +6,20 @@
 #         self.right = right
 class Solution:
     def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
-        def dfs(prev, node, left):
+        def delete(parent, node, left):
             if not node:
                 return
             
-            dfs(node, node.right, False)
-            dfs(node, node.left, True)
-            
-            if not node.left and not node.right and node.val == target:
+            delete(node, node.left, True)
+            delete(node, node.right, False)
+
+            if (node.left, node.right, node.val) == (None, None, target):
                 if left:
-                    prev.left = None
+                    parent.left = None
                 else:
-                    prev.right = None
+                    parent.right = None
         
         res = TreeNode(0, left=root)
-        dfs(res, root, True)
+        delete(res, root, True)
+
         return res.left
-        

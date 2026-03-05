@@ -13,8 +13,10 @@ class Solution:
             for i in range(len(lists)):
                 if not lists[i]:
                     continue
+                
                 heapq.heappush(min_heap, lists[i].val)
                 lists[i] = lists[i].next
+            
             to_insert = heapq.heappop(min_heap)
             cur.next = ListNode(to_insert)
             cur = cur.next

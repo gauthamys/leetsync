@@ -17,6 +17,8 @@ class Solution:
                 res = max(res, t)
             
             for nei, w in adj[node]:
+                if nei in visited:
+                    continue
                 newTime = t + w
                 heapq.heappush(minHeap, (newTime, nei))
 

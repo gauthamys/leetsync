@@ -1,11 +1,13 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        res = [[]]
+        subsets = [[]]
+        
         def backtrack(idx):
-            if idx >= len(nums):
-                return 
-            for subset in res[:]:
-                res.append(subset + [nums[idx]])
+            if idx > len(nums) - 1:
+                return
+            for subset in subsets[:]:
+                subsets.append(subset + [nums[idx]])
             backtrack(idx + 1)
+
         backtrack(0)
-        return res
+        return subsets

@@ -9,7 +9,6 @@ class Solution:
 
         ans = []
         while l:
-            print(l)
             count_first, char_first = heapq.heappop(l)
             if not ans or ans[-1] != char_first:
                 ans.append(char_first)

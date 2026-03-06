@@ -9,9 +9,7 @@ class Solution:
             dp[i] = i
 
         for i in range(4, n + 1):
-            ans = i
-            for j in range(2, i):
-                ans = max(ans, j * dp[i - j])
-            dp[i] = ans
+            for j in range(i):
+                dp[i] = max(dp[i], j * dp[i - j])
         
         return dp[n]

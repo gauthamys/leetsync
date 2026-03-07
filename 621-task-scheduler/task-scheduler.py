@@ -1,23 +1,27 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        counts = Counter(tasks)
+        counts = defaultdict(int)
+        for task in tasks:
+            counts[task] += 1
+        
         maxHeap = [-counts[t] for t in counts]
         heapq.heapify(maxHeap)
-        time = 0
 
+        time = 0
         while maxHeap:
+            stored = []
             cycle = n + 1
             task_count = 0
-            store = []
+            
             while maxHeap and cycle > 0:
-                current_freq = heapq.heappop(maxHeap)
-                if current_freq < -1:
-                    store.append(current_freq + 1)
-                cycle -= 1
+                cur_freq = heapq.heappop(maxHeap)
                 task_count += 1
-
-            for new_freq in store:
-                heapq.heappush(maxHeap, new_freq)
+                cycle -= 1
+                if cur_freq < -1:
+                    stored.append(cur_freq + 1)
+            
+            for f in stored:
+                heapq.heappush(maxHeap, f)
             
             time += task_count if not maxHeap else n + 1
         

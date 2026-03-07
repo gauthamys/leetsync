@@ -6,20 +6,18 @@
 #         self.right = right
 class Solution:
     def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
-        def delete(parent, node, left):
+        def delete(par, node, left):
             if not node:
                 return
-            
             delete(node, node.left, True)
             delete(node, node.right, False)
-
-            if (node.left, node.right, node.val) == (None, None, target):
+            if node.val == target and not node.left and not node.right:
                 if left:
-                    parent.left = None
+                    par.left = None
                 else:
-                    parent.right = None
+                    par.right = None
         
         res = TreeNode(0, left=root)
-        delete(res, root, True)
-
+        delete(res, res.left, True)
         return res.left
+            

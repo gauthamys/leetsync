@@ -13,7 +13,7 @@ class Solution:
             right = dfs(node.right)
             rob = node.val + left[1] + right[1]
             not_rob = max(left) + max(right)
-        
+
             return rob, not_rob
         
         return max(dfs(root))

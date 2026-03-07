@@ -1,23 +1,15 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        n = len(s)
-        dp = [[False] * n for _ in range(n)]
-        ans = [0, 0]
+        dp = [[False] * len(s) for _ in range(len(s))]
+        resLen = 0
+        resIdx = 0
 
-        for i in range(n):
-            dp[i][i] = True
-        
-        for i in range(n - 1):
-            if s[i] == s[i + 1]:
-                dp[i][i + 1] = True
-                ans = [i, i + 1]
-
-        for diff in range(2, n):
-            for i in range(n - diff):
-                j = i + diff
-                if s[i] == s[j] and dp[i + 1][j - 1]:
+        for i in range(len(s) - 1, -1, -1):
+            for j in range(i, len(s)):
+                if s[i] == s[j] and ((j - i) <= 2 or dp[i + 1][j - 1]):
                     dp[i][j] = True
-                    ans = [i, j]
+                    if (j - i + 1) > resLen:
+                        resLen = (j - i + 1)
+                        resIdx = i
         
-        i, j = ans
-        return s[i: j + 1]
+        return s[resIdx : resIdx + resLen]

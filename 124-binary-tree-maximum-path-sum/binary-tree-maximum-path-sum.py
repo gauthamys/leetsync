@@ -12,12 +12,11 @@ class Solution:
             nonlocal res
             if not node:
                 return 0
-            
             left = dfs(node.left)
             right = dfs(node.right)
-            res = max(res, max(0, left) + node.val + max(0, right))
-            
-            return node.val + max(0, max(left, right))
+            res = max(res, node.val + max(0, left) + max(0, right))
+
+            return max(0, node.val + left, node.val + right)
         
         dfs(root)
         return res

@@ -6,20 +6,33 @@
 #         self.right = right
 class Solution:
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
-        if not root:
-            return root
-        if key > root.val:
-            root.right = self.deleteNode(root.right, key)
-        elif key < root.val:
-            root.left = self.deleteNode(root.left, key)
-        else:
-            if not root.left:
-                return root.right
-            elif not root.right:
-                return root.left
-            cur = root.right
-            while cur.left:
-                cur = cur.left
-            root.val = cur.val
-            root.right = self.deleteNode(root.right, root.val)
-        return root
+        def delete(node, target):
+            if not node:
+                return None
+
+            # deletes and returns the root of the tree
+            if node.val == target:
+                if not node.left:
+                    return node.right
+
+                if not node.right:
+                    return node.left
+                
+                # find largest in left subtree
+                cur = node.left
+                while cur.right:
+                    cur = cur.right
+                
+                node.val = cur.val
+                node.left = delete(node.left, node.val)
+            
+            elif target < node.val:
+                node.left = delete(node.left, target)
+            
+            else:
+                node.right = delete(node.right, target)
+            
+            return node
+        
+        return delete(root, key)
+

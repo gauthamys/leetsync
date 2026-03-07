@@ -1,21 +1,23 @@
-from collections import deque
-
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = {i: [] for i in range(numCourses)}
+        adj = {i:[] for i in range(numCourses)}
         degree = [0] * numCourses
-        for a, b in prerequisites:
-            adj[b].append(a)
-            degree[a] += 1
+
+        for u, v in prerequisites:
+            adj[u].append(v)
+            degree[v] += 1
         
-        q = deque([node for node in adj if degree[node] == 0])
-        finished = 0
+        q = deque([crs for crs in range(numCourses) if degree[crs] == 0])
+        finished = set()
+
         while q:
             cur = q.popleft()
+            finished.add(cur)
             for nei in adj[cur]:
+                if nei in finished:
+                    continue
                 degree[nei] -= 1
                 if degree[nei] == 0:
                     q.append(nei)
-            finished += 1
         
-        return finished == numCourses
+        return len(finished) == numCourses

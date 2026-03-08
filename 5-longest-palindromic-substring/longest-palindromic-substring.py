@@ -11,4 +11,5 @@ class Solution:
                     if (j - i + 1) > resLen:
                         resLen = (j - i + 1)
                         resIdx = i
+        
         return s[resIdx : resIdx + resLen]

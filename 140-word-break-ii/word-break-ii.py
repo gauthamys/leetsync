@@ -3,22 +3,24 @@ class Solution:
         res = []
         wordDict = set(wordDict)
 
-        def backtrack(start, curWord, curSentence):
+        def backtrack(idx, curWord, curSentence):
             word = ''.join(curWord)
-            if start >= len(s):
+            if idx == len(s):
                 if word in wordDict:
                     curSentence.append(word)
-                    res.append(" ".join(curSentence))
+                    res.append(' '.join(curSentence))
                     curSentence.pop()
                 return
-
+            
             if word in wordDict:
                 curSentence.append(word)
-                backtrack(start + 1, [s[start]], curSentence)
+                cur = [s[idx]]
+                backtrack(idx + 1, cur, curSentence)
+                cur = list(word)
                 curSentence.pop()
-
-            curWord.append(s[start])
-            backtrack(start + 1, curWord, curSentence)
+            
+            curWord.append(s[idx])
+            backtrack(idx + 1, curWord, curSentence)
             curWord.pop()
         
         backtrack(0, [], [])

@@ -9,30 +9,22 @@ class Solution:
         def delete(node, target):
             if not node:
                 return None
-
-            # deletes and returns the root of the tree
-            if node.val == target:
-                if not node.left:
-                    return node.right
-
-                if not node.right:
-                    return node.left
-                
-                # find largest in left subtree
-                cur = node.left
-                while cur.right:
-                    cur = cur.right
-                
-                node.val = cur.val
-                node.left = delete(node.left, node.val)
-            
+            if target > node.val:
+                node.right = delete(node.right, target)
             elif target < node.val:
                 node.left = delete(node.left, target)
-            
             else:
-                node.right = delete(node.right, target)
-            
+                if not node.left:
+                    return node.right
+                if not node.right:
+                    return node.left
+                else:
+                    cur = node.left
+                    while cur.right:
+                        cur = cur.right
+                    node.val = cur.val
+                    node.left = delete(node.left, node.val)
             return node
         
         return delete(root, key)
-
+            

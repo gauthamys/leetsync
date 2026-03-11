@@ -7,28 +7,14 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        par = {root: None}
-        qu = deque([root])
-        visited = set([root])
-        while q not in visited or p not in visited:
-            cur = qu.popleft()
-            if cur.left:
-                qu.append(cur.left)
-                visited.add(cur.left)
-                par[cur.left] = cur
-            if cur.right:
-                qu.append(cur.right)
-                visited.add(cur.right)
-                par[cur.right] = cur
+        def dfs(node):
+            if not node:
+                return
+            if min(p.val, q.val) <= node.val <= max(p.val, q.val):
+                return node
+            if p.val > node.val and q.val > node.val:
+                return dfs(node.right)
+            else:
+                return dfs(node.left)
         
-        p_path = []
-        cur = p
-        while cur:
-            p_path.append(cur)
-            cur = par[cur]
-        
-        cur = q
-        while cur not in p_path:
-            cur = par[cur]
-        
-        return cur
+        return dfs(root)

@@ -7,7 +7,7 @@ class Solution:
             if i in dp:
                 return dp[i]
             
-            res = 1 + dfs(i + 1) # skipping current char
+            res = 1 + dfs(i + 1)
             for j in range(i, len(s)):
                 if s[i:j + 1] in dictionary:
                     res = min(res, dfs(j + 1))

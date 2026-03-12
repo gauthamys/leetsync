@@ -1,18 +1,12 @@
 class Solution:
     def minExtraChar(self, s: str, dictionary: List[str]) -> int:
-        dictionary = set(dictionary)
-        dp = {len(s): 0}
+        n = len(s)
+        dp = [0] * (n + 1)
 
-        def dfs(i):
-            if i in dp:
-                return dp[i]
-            
-            res = 1 + dfs(i + 1)
-            for j in range(i, len(s)):
+        for i in range(n - 1, -1, -1):
+            dp[i] = 1 + dp[i + 1]
+            for j in range(i, n):
                 if s[i:j + 1] in dictionary:
-                    res = min(res, dfs(j + 1))
-            
-            dp[i] = res
-            return res
+                    dp[i] = min(dp[i], dp[j + 1])
         
-        return dfs(0)
+        return dp[0]

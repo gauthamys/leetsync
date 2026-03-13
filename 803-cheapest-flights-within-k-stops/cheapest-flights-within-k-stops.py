@@ -5,10 +5,8 @@ class Solution:
 
         for _ in range(k + 1):
             tmp = prices.copy()
-            for u, v, w in flights:
-                if prices[u] + w < tmp[v]:
-                    tmp[v] = prices[u] + w
+            for s, d, p in flights:
+                tmp[d] = min(tmp[d], prices[s] + p)
             prices = tmp
         
         return prices[dst] if prices[dst] != float('inf') else -1
-            

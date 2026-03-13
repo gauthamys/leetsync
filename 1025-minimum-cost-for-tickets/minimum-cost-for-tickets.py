@@ -10,7 +10,7 @@ class Solution:
             else:
                 i += 1
                 dp[day] = min(
-                    dp[max(0, day - 1)] + costs[0],
+                    dp[day - 1] + costs[0],
                     dp[max(0, day - 7)] + costs[1],
                     dp[max(0, day - 30)] + costs[2]
                 )

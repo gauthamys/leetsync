@@ -11,8 +11,6 @@ class Solution:
             if s[i] == s[i - 1]:
                 dp[i - 1][i] = 2
 
-        res = 0
-
         # Bottom Up while reusing states
         for i in range(len(s) - 1, -1, -1):
             for j in range(i, len(s)):
@@ -20,8 +18,7 @@ class Solution:
                     dp[i][j] = 2 + dp[i + 1][j - 1]
                 else:
                     dp[i][j] = max(dp[i][j], dp[i + 1][j], dp[i][j - 1])
-                res = max(res, dp[i][j])
         
-        return res
+        return dp[0][len(s) - 1]
 
                         

@@ -10,6 +10,7 @@ class Solution:
                 return grid[i][j] + dfs(i - 1, j)
             
             return grid[i][j] + min(dfs(i - 1, j), dfs(i, j - 1))
+        
         rows, cols = len(grid), len(grid[0])
         return dfs(rows - 1, cols - 1)
             

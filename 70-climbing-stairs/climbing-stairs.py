@@ -1,10 +1,10 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        @lru_cache(None)
+        memo = {1: 1, 2: 2}
         def helper(s):
-            if s == 1:
-                return 1
-            if s == 2:
-                return 2
-            return helper(s - 1) + helper(s - 2)
+            if s in memo:
+                return memo[s]
+            memo[s] = helper(s - 1) + helper(s - 2)
+            return memo[s]
+
         return helper(n)
